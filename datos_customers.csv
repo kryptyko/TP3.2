@@ -1,0 +1,31 @@
+customer_id,first_name,last_name,phone,email,street,city,state,zip_code
+1,Debra,Burks,NULL,debra.burks@yahoo.com,"9273 Thorne Ave.","Orchard Park",NY,14127
+2,Kasha,Todd,NULL,kasha.todd@yahoo.com,"910 Vine Street",Campbell,CA,95008
+3,Tameka,Fisher,NULL,tameka.fisher@aol.com,"769C Honey Creek St.","Redondo Beach",CA,90278
+4,Daryl,Spence,NULL,daryl.spence@aol.com,"988 Pearl Lane",Uniondale,NY,11553
+5,Charolette,Rice,"(916) 381-6003",charolette.rice@msn.com,"107 River Dr.",Sacramento,CA,95820
+6,Lyndsey,Bean,NULL,lyndsey.bean@hotmail.com,"769 West Road",Fairport,NY,14450
+7,Latasha,Hays,"(716) 986-3359",latasha.hays@hotmail.com,"7014 Manor Station Rd.",Buffalo,NY,14215
+8,Jacquline,Duncan,NULL,jacquline.duncan@yahoo.com,"15 Brown St.","Jackson Heights",NY,11372
+9,Genoveva,Baldwin,NULL,genoveva.baldwin@msn.com,"8550 Spruce Drive","Port Washington",NY,11050
+10,Pamelia,Newman,NULL,pamelia.newman@gmail.com,"476 Chestnut Ave.",Monroe,NY,10950
+11,Deshawn,Mendoza,NULL,deshawn.mendoza@yahoo.com,"8790 Cobblestone Street",Monsey,NY,10952
+12,Robby,Sykes,"(516) 583-7761",robby.sykes@hotmail.com,"486 Rock Maple Street",Hempstead,NY,11550
+13,Lashawn,Ortiz,NULL,lashawn.ortiz@msn.com,"27 Washington Rd.",Longview,TX,75604
+14,Garry,Espinoza,NULL,garry.espinoza@hotmail.com,"7858 Rockaway Court",Forney,TX,75126
+15,Linnie,Branch,NULL,linnie.branch@gmail.com,"314 South Columbia Ave.",Plattsburgh,NY,12901
+16,Emmitt,Sanchez,"(212) 945-8823",emmitt.sanchez@hotmail.com,"461 Squaw Creek Road","New York",NY,10002
+17,Caren,Stephens,NULL,caren.stephens@msn.com,"914 Brook St.",Scarsdale,NY,10583
+18,Georgetta,Hardin,NULL,georgetta.hardin@aol.com,"474 Chapel Dr.",Canandaigua,NY,14424
+19,Lizzette,Stein,NULL,lizzette.stein@yahoo.com,"19 Green Hill Lane","Orchard Park",NY,14127
+20,Aleta,Shepard,NULL,aleta.shepard@aol.com,"684 Howard St.","Sugar Land",TX,77478
+21,Tobie,Little,NULL,tobie.little@gmail.com,"10 Silver Spear Dr.",Victoria,TX,77904
+22,Adelle,Larsen,NULL,adelle.larsen@gmail.com,"683 West Kirkland Dr.","East Northport",NY,11731
+23,Kaylee,English,NULL,kaylee.english@msn.com,"8786 Fulton Rd.",Hollis,NY,11423
+24,Corene,Wall,NULL,corene.wall@msn.com,"9601 Ocean Rd.",Atwater,CA,95301
+25,Regenia,Vaughan,NULL,regenia.vaughan@gmail.com,"44 Stonybrook Street",Mahopac,NY,10541
+26,Theo,Reese,"(562) 215-2907",theo.reese@gmail.com,"8755 W. Wild Horse St.","Long Beach",NY,11561
+27,Santos,Valencia,NULL,santos.valencia@yahoo.com,"7479 Carpenter Street",Sunnyside,NY,11104
+28,,Perez,123456,prueba@prueba.com,su%domicilio,Salta,Salta,4400
+29,Juan,Juan,123456,prueba@prueba.com,su%domicilio,Salta,Salta,4400
+30,Juan,Juan,123456,prueba@prueba.com,"su domicilio",Salta,Salta,4400
