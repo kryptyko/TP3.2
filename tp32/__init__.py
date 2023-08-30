@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from config import Config
 from .database import DatabaseConnectionSales
+from .database2 import DatabaseConnectionproduction
 import pdb
 
 def init_app():
@@ -191,6 +192,57 @@ def init_app():
 
         return jsonify({}), 200
         
+
+    #Ejercicio 1.5
+    @app.route('/customers/<int:customer_id>', methods=['DELETE'])
+    def delete_customer(customer_id):
+        # Verificar que el cliente exista en la base de datos
+        customer = DatabaseConnectionSales.fetch_one("SELECT * FROM customers WHERE id = %s", (customer_id,))
+        if not customer:
+            return jsonify({'error': 'Cliente no encontrado'}), 404
+
+        # Eliminar el cliente de la base de datos
+        query = "DELETE FROM customers WHERE id = %s"
+        params = (customer_id,)
+        DatabaseConnectionSales.execute_query(query, params)
+
+        return jsonify({}), 204
         
-        
+
+
+
+
+    #EJERCICIO 2
+    @app.route('/products/<int:product_id>', methods=['GET'])
+    def get_product(product_id):
+        # Obtener el producto de la base de datos
+        query = """
+            SELECT p.product_id, p.product_name, b.brand_id, b.brand_name, c.category_id, c.category_name, p.model_year, p.list_price
+            FROM products AS p
+            JOIN brands AS b ON p.brand_id = b.brand_id
+            JOIN categories AS c ON p.category_id = c.category_id
+            WHERE p.product_id = %s
+        """
+        params = (product_id,)
+        product = DatabaseConnectionproduction.fetch_one(query, params)
+        if not product:
+            return jsonify({'error': 'Producto no encontrado'}), 404
+
+        # Construir la respuesta
+        response = {
+            'product_id': product[0],
+            'product_name': product[1],
+            'brand': {
+                'brand_id': product[2],
+                'brand_name': product[3]
+            },
+            'category': {
+                'category_id': product[4],
+                'category_name': product[5]
+            },
+            'model_year': product[6],
+            'list_price': product[7]
+        }
+
+        return jsonify(response), 200    
     return app
