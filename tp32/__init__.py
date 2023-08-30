@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from config import Config
 from .database import DatabaseConnectionSales
-from .database2 import DatabaseConnectionproduction
+from .database import DatabaseConnectionproduction
 import pdb
 
 def init_app():
