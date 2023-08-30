@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from config import Config
 from .database import DatabaseConnectionSales
-
+import pdb
 
 def init_app():
     """Crea y configura la aplicación Flask"""
@@ -90,7 +90,7 @@ def init_app():
 
 
     # Ejercicio 1.3
-    # Cambiar a POST
+    # Cambiar a POST no debe ser con get es pon post
     @app.route('/customer_create', methods = ['GET'])
     def create_customer1():
         query = 'INSERT INTO sales.customers (first_name, last_name, phone, email, street, city, state, zip_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);'
@@ -108,7 +108,7 @@ def init_app():
         return {'msg': 'Actor creado con éxito'}, 201
     
     #Ejercicio 1.3 modificado
-    # Ejercicio 1.3
+    # Ejercicio 1.3 tratando de hacerlo con post
     @app.route('/customers', methods=['POST'])
     def create_customer():
         data = request.get_json()
@@ -118,7 +118,7 @@ def init_app():
         for field in required_fields:
             if field not in data:
                 return jsonify({'error': f'El campo "{field}" es requerido'}), 400
-
+        #pdb.set_trace()  
         # Obtener los datos del cliente desde la solicitud
         first_name = data['first_name']
         last_name = data['last_name']
