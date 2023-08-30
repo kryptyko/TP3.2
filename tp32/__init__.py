@@ -286,6 +286,37 @@ def init_app():
 
         return jsonify(response), 200  
     
+    # Ejercicio 2.1.3
+    @app.route('/products', methods=['POST'])
+    def create_product():
+        data = request.get_json()
+
+        # Verificar que los campos requeridos estén presentes en la solicitud
+        required_fields = ['product_name', 'brand_id', 'category_id', 'model_year', 'list_price']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({'error': f'El campo "{field}" es requerido'}), 400
+        
+        # Obtener los datos del cliente desde la solicitud
+        product_name = data['product_name']
+        brand_id = data['brand_id']
+        category_id = data['category_id']
+        model_year = data['model_year']
+        list_price = float(data['list_price'])
+
+        # Insertar el nuevo cliente en la base de datos
+        query = 'INSERT INTO production.products (product_name, brand_id, category_id, model_year, list_price) VALUES (%s, %s, %s, %s, %s)'
+        params = (product_name, brand_id, category_id, model_year, list_price)
+        DatabaseConnectionproduction.execute_query(query, params)
+
+        # Construir la respuesta
+        response = {}
+        return jsonify(response), 201
+
+
+
+
+
 
     #Ejercicio 2.1.4
     @app.route('/products/<int:product_id>', methods=['PUT'])
