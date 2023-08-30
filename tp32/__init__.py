@@ -212,7 +212,7 @@ def init_app():
 
 
 
-    #EJERCICIO 2
+    #EJERCICIO 2.1.1
     @app.route('/products/<int:product_id>', methods=['GET'])
     def get_product(product_id):
         # Obtener el producto de la base de datos
@@ -244,5 +244,76 @@ def init_app():
             'list_price': product[7]
         }
 
-        return jsonify(response), 200    
+        return jsonify(response), 200  
+
+    #Ejercicio 2.1.2
+    # 
+    @app.route('/products', methods=['GET'])
+    def get_products():
+        # Obtener los parámetros de consulta opcionales
+        brand_id = request.args.get('brand_id')
+        category_id = request.args.get('category_id')
+
+        # Construir la consulta SQL base
+        query = """
+            SELECT p.product_id, p.product_name, b.brand_id, b.brand_name, c.category_id, c.category_name, p.model_year, p.list_price
+            FROM products AS p
+            JOIN brands AS b ON p.brand_id = b.brand_id
+            JOIN categories AS c ON p.category_id = c.category_id
+        """
+
+        # Agregar filtros según los parámetros proporcionados
+        params = ()
+        if brand_id:
+            query += " WHERE p.brand_id = %s"
+            params += (brand_id,)
+        if category_id:
+            if not brand_id:
+                query += " WHERE"
+            else:
+                query += " AND"
+            query += " p.category_id = %s"
+            params += (category_id,)
+
+        # Obtener el listado de productos de la base de datos
+        products = DatabaseConnectionproduction.fetch_all(query, params)
+
+        # Construir la respuesta
+        response = {
+            'products': [],
+            'total': len(products)
+        }
+
+        for product in products:
+            response['products'].append({
+                'product_id': product[0],
+                'product_name': product[1],
+                'brand': {
+                    'brand_id': product[2],
+                    'brand_name': product[3]
+                },
+                'category': {
+                    'category_id': product[4],
+                    'category_name': product[5]
+                },
+                'model_year': product[6],
+                'list_price': product[7]
+            })
+
+        return jsonify(response), 200  
+    #Ejercicio 2.1.5
+    @app.route('/products/<int:product_id>', methods=['DELETE'])
+    def delete_product(product_id):
+        # Verificar si el producto existe
+        query = "SELECT * FROM products WHERE product_id = %s"
+        params = (product_id,)
+        product = DatabaseConnectionSales.fetch_one(query, params)
+        if not product:
+            return jsonify({'error': 'Producto no encontrado'}), 404
+
+        # Eliminar el producto de la base de datos
+        delete_query = "DELETE FROM products WHERE product_id = %s"
+        DatabaseConnectionSales.execute_query(delete_query, params)
+
+        return jsonify({}), 204
     return app
