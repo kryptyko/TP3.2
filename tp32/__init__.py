@@ -33,29 +33,10 @@ def init_app():
 
     # Ejercicio 1.2
    
-    @app.route('/customers', methods = ['GET'])
+    
+    
+    @app.route('/customers', methods=['GET'])
     def get_customers():
-        query = 'SELECT customer_id, first_name, last_name, phone, email, street, city, state, zip_code FROM sales.customers;'
-        results = DatabaseConnectionSales.fetch_all(query)
-        customers = []
-        contador = 0
-        for result in results:
-            customers.append({
-                'id': result[0],
-                'nombre': result[1],
-                'apellido': result[2],
-                'email': result[4],
-                'telefono': result[3],
-                'calle': result[5],
-                'ciudad': result[6],
-                'provincia': result[7],
-                'codigo_postal': result[8]
-            })
-            contador += 1
-        return {'clientes': customers, 'total': contador}, 200
-    #ejercicio 1.2 bis
-    @app.route('/customers1', methods=['GET'])
-    def get_customers1():
         state = request.args.get('state')
 
         if state:
@@ -116,10 +97,13 @@ def init_app():
 
         # Verificar que los campos requeridos estén presentes en la solicitud
         required_fields = ['first_name', 'last_name', 'email', 'phone']
-        for field in required_fields:
-            if field not in data:
-                return jsonify({'error': f'El campo "{field}" es requerido'}), 400
-        #pdb.set_trace()  
+
+        # for field in required_fields:
+        missing_fields = [field for field in required_fields if field not in data]
+        if missing_fields:
+            return jsonify({'error': f'Los campos {", ".join(missing_fields)} son requeridos'}), 400
+
+           
         # Obtener los datos del cliente desde la solicitud
         first_name = data['first_name']
         last_name = data['last_name']
@@ -135,9 +119,9 @@ def init_app():
         params = (first_name, last_name, email, phone, street, city, state, zip_code)
         customer_id = DatabaseConnectionSales.execute_query(query, params)
 
-        # Construir la respuesta
+        # Construir la respuesta mostrando el customerid
         response = {'customer_id': customer_id}
-        return jsonify(response), 201
+        return jsonify({}), 201 # como pide que el return sea vacio lo dejamos vacio
 
     
 

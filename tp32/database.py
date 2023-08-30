@@ -15,11 +15,18 @@ class DatabaseConnectionSales:
         return cls._connection
     
     @classmethod
+        #class modificada para devolver el las_insert_id
+        #def execute_query(cls, query, params=None):
+        #   cursor = cls.get_connection().cursor()
+        #  cursor.execute(query, params)
+        # cls._connection.commit()
+            #return cursor
     def execute_query(cls, query, params=None):
         cursor = cls.get_connection().cursor()
         cursor.execute(query, params)
         cls._connection.commit()
-        return cursor
+        last_insert_id = cursor.lastrowid
+        return last_insert_id
     
     @classmethod
     def fetch_one(cls, query, params=None):
