@@ -285,6 +285,59 @@ def init_app():
             })
 
         return jsonify(response), 200  
+    
+
+    #Ejercicio 2.1.4
+    @app.route('/products/<int:product_id>', methods=['PUT'])
+    def update_product(product_id):
+        # Verificar si el producto existe
+        query = "SELECT * FROM products WHERE product_id = %s"
+        params = (product_id,)
+        product = DatabaseConnectionproduction.fetch_one(query, params)
+        if not product:
+            return jsonify({'error': 'Producto no encontrado'}), 404
+
+        # Obtener los datos del cuerpo de la petición
+        data = request.get_json()
+
+        # Actualizar los campos del producto si se proporcionan en el cuerpo de la petición
+        update_query = "UPDATE products SET"
+        update_values = []
+        update_params = []
+
+        if 'product_name' in data:
+            update_values.append("product_name = %s")
+            update_params.append(data['product_name'])
+
+        if 'brand_id' in data:
+            update_values.append("brand_id = %s")
+            update_params.append(data['brand_id'])
+
+        if 'category_id' in data:
+            update_values.append("category_id = %s")
+            update_params.append(data['category_id'])
+
+        if 'model_year' in data:
+            update_values.append("model_year = %s")
+            update_params.append(data['model_year'])
+
+        if 'list_price' in data:
+            update_values.append("list_price = %s")
+            update_params.append(data['list_price'])
+
+        if not update_values:
+            return jsonify({'error': 'No se proporcionaron datos para actualizar'}), 400
+
+        update_query += " " + ", ".join(update_values)
+        update_query += " WHERE product_id = %s"
+        update_params.append(product_id)
+
+        # Actualizar el producto en la base de datos
+        DatabaseConnectionproduction.execute_query(update_query, update_params)
+
+        return jsonify({}), 200
+
+
     #Ejercicio 2.1.5
     @app.route('/products/<int:product_id>', methods=['DELETE'])
     def delete_product(product_id):
