@@ -20,7 +20,7 @@ class DatabaseConnectionproduction:
         cursor.execute(query, params)
         cls._connection.commit()
         return cursor
-    
+     
     @classmethod
     def fetch_one(cls, query, params=None):
         cursor = cls.get_connection().cursor()
